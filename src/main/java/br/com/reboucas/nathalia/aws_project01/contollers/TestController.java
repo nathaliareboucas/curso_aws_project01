@@ -19,7 +19,7 @@ public class TestController {
         return ResponseEntity.ok("Name: " + name);
     }
 
-    @GetMapping("/test")
+    @GetMapping()
     public ResponseEntity<?> myTest() {
         LOG.info("Chamando endpoint Test");
         return ResponseEntity.ok("Endpoint teste ok");
