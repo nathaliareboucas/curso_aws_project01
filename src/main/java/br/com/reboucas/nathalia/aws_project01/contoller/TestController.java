@@ -1,4 +1,4 @@
-package br.com.reboucas.nathalia.aws_project01.contollers;
+package br.com.reboucas.nathalia.aws_project01.contoller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
