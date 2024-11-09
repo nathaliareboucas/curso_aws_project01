@@ -15,9 +15,9 @@ import org.springframework.stereotype.Service;
 @Service
 @Slf4j
 public class ProductPublisher {
-    private AmazonSNS snsClient;
-    private Topic productEventsTopic;
-    private ObjectMapper objectMapper;
+    private final AmazonSNS snsClient;
+    private final Topic productEventsTopic;
+    private final ObjectMapper objectMapper;
 
     public ProductPublisher(AmazonSNS snsClient,
                             @Qualifier("productEventsTopic") Topic productEventsTopic,
