@@ -1,0 +1,30 @@
+version: '3.4'
+services:
+  api:
+    image: 'nathaliareboucas/curso_aws_project01:1.2.0'
+    build:
+      context: .
+    container_name: aws_project01
+    ports:
+      - 8080:8080
+    depends_on:
+      - db
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/aws_project01_db?createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true&useSSL=false
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=12345
+
+  db:
+    image: mysql/mysql-server:latest
+    container_name: my-mysql
+    restart: always
+    environment:
+      - MYSQL_DATABASE=aws_project01
+      - MYSQL_ROOT_PASSWORD=12345
+    ports:
+      - '3306:3306'
+    volumes:
+      - mysql-volume:/var/lib/mysql
+volumes:
+  mysql-volume:
+    driver: local
