@@ -1,7 +1,9 @@
 package br.com.reboucas.nathalia.aws_project01.contoller;
 
+import br.com.reboucas.nathalia.aws_project01.enums.EventType;
 import br.com.reboucas.nathalia.aws_project01.model.Product;
 import br.com.reboucas.nathalia.aws_project01.repository.ProductRepository;
+import br.com.reboucas.nathalia.aws_project01.service.ProductPublisher;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +18,7 @@ import java.util.Optional;
 public class ProductController {
 
     private final ProductRepository repository;
+    private final ProductPublisher productPublisher;
 
     @GetMapping
     public ResponseEntity<List<Product>> findAll() {
@@ -32,6 +35,7 @@ public class ProductController {
     @PostMapping
     public ResponseEntity<Product> saveProduct(@RequestBody Product product) {
         Product productCreated = repository.save(product);
+        productPublisher.publishProductEvent(productCreated, EventType.PRODUCT_CREATED, "usuário criação");
         return new ResponseEntity<Product>(productCreated, HttpStatus.CREATED);
     }
 
@@ -41,6 +45,7 @@ public class ProductController {
         if (byId.isPresent()) {
             product.setId(id);
             Product productUpdated = repository.save(product);
+            productPublisher.publishProductEvent(productUpdated, EventType.PRODUCT_UPDATED, "usuário atualização");
             return ResponseEntity.ok(productUpdated);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -53,6 +58,7 @@ public class ProductController {
         if (byId.isPresent()) {
             Product product = byId.get();
             repository.delete(product);
+            productPublisher.publishProductEvent(product, EventType.PRODUCT_DELETED, "usuário criação");
             return ResponseEntity.ok(product);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
