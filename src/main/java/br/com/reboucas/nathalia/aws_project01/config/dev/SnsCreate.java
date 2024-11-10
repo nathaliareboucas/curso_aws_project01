@@ -1,4 +1,4 @@
-package br.com.reboucas.nathalia.aws_project01.config;
+package br.com.reboucas.nathalia.aws_project01.config.dev;
 
 import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
 import com.amazonaws.client.builder.AwsClientBuilder;
