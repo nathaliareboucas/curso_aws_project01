@@ -58,7 +58,7 @@ public class ProductController {
         if (byId.isPresent()) {
             Product product = byId.get();
             repository.delete(product);
-            productPublisher.publishProductEvent(product, EventType.PRODUCT_DELETED, "usuário criação");
+            productPublisher.publishProductEvent(product, EventType.PRODUCT_DELETED, "usuário exclusão");
             return ResponseEntity.ok(product);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
